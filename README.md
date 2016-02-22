@@ -20,7 +20,32 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+# 配置 appkey 和 appsecret
+# 如果使用rails 可以放到 config/alidayu.rb
+
+Alidayu.appkey = ""
+Alidayu.appsecret = ""
+
+# 发短信
+# 必须参数
+# template_id       模版ID  String
+# params            模版参数 Hash
+# phones            电话号码 String or String[]
+# sign_name         签名
+
+# 具体文档 http://open.taobao.com/doc2/apiDetail?apiId=25450
+
+Alidayu.send_sms({
+  template_id: "SMS_0000000",
+  sign_name: "身份验证",
+  params: {
+    code: '',
+    product: '',
+  },
+  phones: "填写电话号码"
+})
+```
 
 ## Development
 
@@ -30,7 +55,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/alidayu-ruby/fork )
+1. Fork it ( https://github.com/davidqhr/alidayu-ruby/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
