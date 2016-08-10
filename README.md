@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ```ruby
 # 配置 appkey 和 appsecret
-# 如果使用rails 可以放到 config/alidayu.rb
+# 如果使用rails 可以放到 config/initializers/alidayu.rb
 
 Alidayu.appkey = ""
 Alidayu.appsecret = ""
