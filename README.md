@@ -1,6 +1,6 @@
 # Alidayu::Ruby
 
-阿里大鱼发送短信ruby sdk
+阿里大于发送短信ruby sdk
 
 ## Installation
 
