@@ -45,6 +45,26 @@ Alidayu.send_sms({
   },
   phones: "填写电话号码"
 })
+
+# 发语音
+# 必须参数
+# template_id       模版ID  String
+# params            模版参数 Hash
+# phone             电话号码 String
+# show_phone        显示的电话号码 String
+
+# 具体文档 https://api.alidayu.com/doc2/apiDetail.htm?spm=a3142.8062830.3.3.ZAq95Z&apiId=25444
+
+Alidayu.send_voice({
+  template_id: "SMS_0000000",
+  params: {
+    code: '',
+    name: ''
+  },
+  phone: "填写电话号码",
+  show_phone: "填写显示的电话号码"
+})
+
 ```
 
 ## Development
