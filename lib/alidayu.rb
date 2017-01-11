@@ -91,14 +91,19 @@ module Alidayu
         :sms_type => 'normal',
       }
 
-      # 电话号码
+      # 拨叫电话号码
       alidayu_params[:called_num] = params[:phone]
+
+      # 拨叫显示号码
+      alidayu_params[:called_show_num] = params[:show_phone]
 
       # 模版ID
       alidayu_params[:tts_code] = params[:template_id]
 
       # 模版参数
       alidayu_params[:tts_param] = JSON(params[:params])
+
+      alidayu_params[:extend] = params[:extend] if params[:extend]
 
       sign = sign alidayu_params
       alidayu_params.merge!({:sign => sign})
