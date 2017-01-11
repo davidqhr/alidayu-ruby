@@ -100,6 +100,9 @@ module Alidayu
       # 模版参数
       alidayu_params[:tts_param] = JSON(params[:params])
 
+      # 显示号码
+      alidayu_params[:called_show_num] = params[:show_phone]
+
       sign = sign alidayu_params
       alidayu_params.merge!({:sign => sign})
       alidayu_params
