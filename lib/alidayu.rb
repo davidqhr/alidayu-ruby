@@ -14,9 +14,26 @@ module Alidayu
     # sign_name         签名
     def send_sms params
       params = build_params(params)
+      request(uri, params)
+    end
 
-      uri = URI.parse('https://eco.taobao.com/router/rest')
+    # 必须参数
+    # template_id       模版ID  String
+    # params            模版参数 Hash
+    # phone             电话号码 String
+    # show_phone        显示的电话号码 String
+    def send_voice params
+      params = build_voice_params(params)
+      request(uri, params)
+    end
 
+    def uri
+      @uri ||= URI.parse('https://eco.taobao.com/router/rest')
+    end
+
+    private
+
+    def request(uri, params)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -28,8 +45,6 @@ module Alidayu
       res_body = JSON.parse response.body
       res_body
     end
-
-    private
 
     def build_params params
       alidayu_params = {
@@ -59,6 +74,31 @@ module Alidayu
 
       # 签名
       alidayu_params[:sms_free_sign_name] = params[:sign_name] || sign_name
+
+      sign = sign alidayu_params
+      alidayu_params.merge!({:sign => sign})
+      alidayu_params
+    end
+
+    def build_voice_params params
+      alidayu_params = {
+        :method => 'alibaba.aliqin.fc.tts.num.singlecall',
+        :app_key => appkey,
+        :timestamp => Time.new.strftime("%Y-%m-%d %T"),
+        :format => 'json',
+        :v => '2.0',
+        :sign_method => 'md5',
+        :sms_type => 'normal',
+      }
+
+      # 电话号码
+      alidayu_params[:called_num] = params[:phone]
+
+      # 模版ID
+      alidayu_params[:tts_code] = params[:template_id]
+
+      # 模版参数
+      alidayu_params[:tts_param] = JSON(params[:params])
 
       sign = sign alidayu_params
       alidayu_params.merge!({:sign => sign})
